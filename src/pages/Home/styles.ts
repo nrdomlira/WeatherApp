@@ -9,27 +9,6 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: 'white'
     },
-    displayTemp: {
-        padding: 24,
-        alignItems: 'center'
-    },
-    textCity: {
-        fontSize: 40,
-        fontWeight: '500',
-        textShadowColor: 'rgba(0, 0, 0, 0.7)',
-        textShadowOffset: { width: -2, height: 5 },
-        textShadowRadius: 15
-    },
-    textTemp: {
-        marginBottom: 8,
-        fontSize: 64,
-        textShadowColor: 'rgba(0, 0, 0, 0.7)',
-        textShadowOffset: { width: -2, height: 5 },
-        textShadowRadius: 15
-    },
-    description:{
-        fontSize: 24
-    },
     btnSearch: {
         backgroundColor: '#F0F8FF',
         height: 60,
@@ -49,6 +28,13 @@ const styles = StyleSheet.create({
     favorites: {
         marginTop: 32,
         alignSelf: 'center',
+    },
+    linkIcon:{
+        justifyContent: 'center',
+        alignSelf: 'center',
+    },
+    iconAdd:{
+        justifyContent: 'center',
     },
 });
 

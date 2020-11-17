@@ -22,7 +22,6 @@ const Localitys: React.FC<Data> = ({ title, place }) => {
             return response?.match(city)
         })
 
-        console.log(JSON.stringify(isExists))
         if (favorites) {
             favoritesArray = JSON.parse(favorites);
         }
@@ -31,7 +30,6 @@ const Localitys: React.FC<Data> = ({ title, place }) => {
                 if (response) {
                     const favoritedList = JSON.parse(response);
                     favoritedListNames = favoritedList.map((names: any) => {
-
                         return names.name;
                     })
 
