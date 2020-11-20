@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useFocusEffect, useNavigation } from '@react-navigation/native';
-import { Linking, Text, View } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { Link, useFocusEffect } from '@react-navigation/native';
+import { Text, View } from 'react-native';
+import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/Feather';
 import styles from './styles';
 import Temperature from '../../components/Temperature';
-import Localitys from '../Localitys';
 
 
 
 const Home: React.FC = () => {
-  const navitation = useNavigation();
   const [favorites, setFavorites] = useState([]);
   const [city, setCity] = useState('');
 
-  function handleNavigateToLocalitys() {
-    navitation.navigate('Localitys');
-  }
 
   function loadFavorites() {
     AsyncStorage.getItem('favorites').then(response => {
       if (response) {
         const favorited = JSON.parse(response);
+        //console.log(a)
         setFavorites(favorited);
       }
     });
@@ -35,29 +31,39 @@ const Home: React.FC = () => {
 
   }
 
+  function remove(key: any) {
+    AsyncStorage.getItem('favorites').then(response => {
+      if (response) {
+        const favorited = JSON.parse(response);
+        const filtered = favorited.filter((filte: any) => filte.city != key)
+
+        AsyncStorage.setItem('favorites', JSON.stringify(filtered));
+      }
+    });
+  }
+
   useFocusEffect(
     React.useCallback(() => {
       loadFavorites();
-    }, [])
+    }, [favorites])
   )
 
   return (
     <View style={styles.container}>
+      <Icon name='star' size={16} style={{ color: 'black' }} />
       <Temperature location={city} />
-      <RectButton style={styles.btnSearch} onPress={handleNavigateToLocalitys}><Text style={styles.buttonText}>Cidades</Text></RectButton>
-      <View style={styles.favorites}>
-        <Text>Favoritos</Text>
-
+      <Text style={styles.favorites}>Favoritos</Text>
+      <ScrollView>
         {favorites.map((list: any) => {
           return (
-            <RectButton key={list.city} onPress={() => { loadTemp(list.city) }}>
-              <Text>{list.name}</Text>
+            <RectButton key={list.city} onPress={() => { loadTemp(list.city) }} style={styles.reactButtonFav}>
+              <Text style={styles.cityName}>{list.name}</Text>
+              <TouchableOpacity onPress={() => { remove(list.city) }}><Icon style={{ alignSelf: 'center' }} name='more-vertical' /></TouchableOpacity>
             </RectButton>
           )
         })}
-        <Link to='/Localitys' style={styles.linkIcon}><Icon style={styles.iconAdd} name={'plus-circle'} size={20}/></Link>
-
-      </View>
+        <Link to='/Localitys' style={styles.linkIcon}><Icon style={styles.iconAdd} name={'plus-circle'} size={20} /></Link>
+      </ScrollView>
     </View>
   );
 }

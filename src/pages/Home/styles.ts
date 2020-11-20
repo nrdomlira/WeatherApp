@@ -6,9 +6,6 @@ const styles = StyleSheet.create({
         padding: 32,
         backgroundColor: '#B0C4DE',
     },
-    input: {
-        backgroundColor: 'white'
-    },
     btnSearch: {
         backgroundColor: '#F0F8FF',
         height: 60,
@@ -36,6 +33,19 @@ const styles = StyleSheet.create({
     iconAdd:{
         justifyContent: 'center',
     },
+    reactButtonFav:{
+        flexDirection:'row',
+        flex: 1,
+        paddingTop: 8,
+        paddingBottom: 8,
+        alignItems:'center',
+        justifyContent: 'space-between'
+    },
+    cityName:{
+        fontSize: 16,
+        fontWeight: '700',
+
+    }
 });
 
 export default styles;

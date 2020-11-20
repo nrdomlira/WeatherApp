@@ -1,9 +1,7 @@
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 
 import styles from './styles';
 
@@ -32,15 +30,16 @@ const Temperature: React.FC<Region> = ({ location }) => {
         async function getLasted() {
             const _lastLocation: any = await AsyncStorage.getItem('@LastedLoadLocation')
             const response = await Axios.get(`http://api.openweathermap.org/data/2.5/weather?units=metric&lang=pt_br&q=${_lastLocation}&appid=2b22e1b036190ec14d524c376e02a1c6`)
-                
-                setWeatherData(response.data);            
+
+            setWeatherData(response.data);
+            //console.log(_lastLocation);           
         }
         getLasted()
 
     }, [location]);
 
     if (!weatherData.name) {
-        return null
+        return (<ActivityIndicator size="large" />)
     }
     return (
         <View style={styles.displayTemp}>
